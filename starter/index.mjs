@@ -16,7 +16,8 @@ const questions = [
   "What license are you using?",
   "Who can contribute to this project?",
   "How to test the app?",
-  "Any future questions?",
+  "What is your GitHub url?",
+  "What is your e-mail address?"
 ];
 
 /* function to write README file
@@ -88,11 +89,6 @@ let {
     },
     {
       type: "input",
-      message: "Any future questions?",
-      name: "questions",
-    },
-    {
-      type: "input",
       message: "What is your GitHub url?",
       name: "github",
     },
@@ -113,8 +109,15 @@ let {
   ## Description
   ${description}
 
-  ## Table of contents
+  ## Table of Contents
   ${contents}
+  ### * [description](#description)
+  ### * [installation](#installation)
+  ### * [usage](#usage)
+  ### * [license](#license)
+  ### * [contributors](#contributors)
+  ### * [testing](#testing)
+  ### * [questions](#questions)
 
   ## Installation
   ${installation}
@@ -123,7 +126,8 @@ let {
   ${usage}
 
   ## License
-  ${license}
+  ${generateLicense(choices)}
+  ${choice}
 
   ## Contributors
   ${contributors}
@@ -138,5 +142,21 @@ let {
   ### "For further questions, please make sure to contact me at my e-mail address:" +
   ${email}`
 
-  fs.writeFile("README.md", readmeContent)
+  function generateLicense(choices){
+    for (let i = 0; i < choices.length; i++) {
+      const choice = choices[i];
+      if (choice === "MIT") {
+        return "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)"
+      } else if (choice === "Mozilla"){
+        return "[![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)"
+      } else if (choice === "IBM") {
+        return "[![License: IPL 1.0](https://img.shields.io/badge/License-IPL_1.0-blue.svg)](https://opensource.org/licenses/IPL-1.0)"
+      } else {
+        console.log("Must choose a license!")
+      }
+      
+    }
+
+  }
+
  
